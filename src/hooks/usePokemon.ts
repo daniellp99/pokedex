@@ -1,10 +1,12 @@
-import fetcher from "@/lib/fetcher";
 import useSWR from "swr";
 
-function usePokemon(name: string) {
+import fetcher from "@/lib/fetcher";
+import { Pokemon } from "@/lib/schemas/pokemon-detail";
+
+export function usePokemon(name: string) {
   const { data, error, isLoading } = useSWR(
     `https://pokeapi.co/api/v2/pokemon/${name}`,
-    fetcher
+    fetcher<Pokemon>
   );
 
   return {
