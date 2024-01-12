@@ -9,7 +9,7 @@ export default function MainNav() {
         x="0px"
         y="0px"
         viewBox="0 0 100 125"
-        enable-background="new 0 0 100 100"
+        enableBackground="new 0 0 100 100"
         stroke="currentColor"
         className="size-14"
       >
