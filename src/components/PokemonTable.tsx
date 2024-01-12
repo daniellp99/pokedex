@@ -55,7 +55,7 @@ function PokemonRow({ name }: { name: string }) {
 
   return (
     <TableRow className="odd:bg-accent">
-      <TableCell className="w-20 p-0">
+      <TableCell className="w-20 md:w-28 lg:w-40 p-0">
         <PokemonAvatar
           avatar={{ name: pokemon.name, sprites: pokemon.sprites }}
         />
