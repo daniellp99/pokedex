@@ -5,7 +5,7 @@ import PokemonTable from "@/components/PokemonTable";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 export default function PokemonProvider() {
-  const isDesktop = useMediaQuery("(min-width: 768px)");
+  const isDesktop = useMediaQuery("(min-width: 640px)");
   if (isDesktop)
     return (
       <PaginationContextProvider>
