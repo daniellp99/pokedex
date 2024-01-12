@@ -133,7 +133,10 @@ function PokemonRow({ name }: { name: string }) {
 
           <AvatarFallback>
             <p className="font-medium capitalize truncate">
-              {pokemon.name.replace("-", " ")}
+              {pokemon.name
+                .split("-")
+                .map((word) => word[0].toUpperCase())
+                .join("")}
             </p>
           </AvatarFallback>
         </Avatar>
