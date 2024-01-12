@@ -97,7 +97,7 @@ function PokemonRow({ name }: { name: string }) {
   if (isError || !pokemon) return null;
 
   return (
-    <TableRow>
+    <TableRow className="odd:bg-accent">
       <TableCell className="w-20 p-0">
         <Avatar className="size-20 group">
           <AvatarImage
