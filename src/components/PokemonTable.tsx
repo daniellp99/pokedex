@@ -1,8 +1,6 @@
 "use client";
 import { ChevronLeftIcon, ChevronRightIcon, LoaderIcon } from "lucide-react";
-import Image from "next/image";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
   Pagination,
@@ -26,6 +24,7 @@ import { usePokemon } from "@/hooks/usePokemon";
 import { extractOffSetAndLimit } from "@/lib/utils";
 import { usePaginationContext } from "./PaginationContext";
 import PokemonStatBadges from "./PokemonStatBadges";
+import PokemonAvatar from "./PokemonAvatar";
 
 function LoadingRow() {
   return (
@@ -57,47 +56,9 @@ function PokemonRow({ name }: { name: string }) {
   return (
     <TableRow className="odd:bg-accent">
       <TableCell className="w-20 p-0">
-        <Avatar className="size-20 group">
-          <AvatarImage
-            className="opacity-100 group-hover:opacity-0 transition group-hover:scale-110"
-            asChild
-            src={pokemon.sprites.front_default}
-          >
-            <Image
-              src={pokemon.sprites.front_default}
-              alt={pokemon.name}
-              fill
-              sizes="(min-width: 80px) 50vw, 100vw"
-              style={{
-                objectFit: "cover",
-              }}
-            />
-          </AvatarImage>
-          <AvatarImage
-            className="opacity-0 group-hover:opacity-100 transition group-hover:scale-110"
-            asChild
-            src={pokemon.sprites.front_shiny}
-          >
-            <Image
-              src={pokemon.sprites.front_shiny}
-              alt={pokemon.name}
-              fill
-              sizes="(min-width: 80px) 50vw, 100vw"
-              style={{
-                objectFit: "cover",
-              }}
-            />
-          </AvatarImage>
-
-          <AvatarFallback>
-            <p className="font-medium capitalize truncate">
-              {pokemon.name
-                .split("-")
-                .map((word) => word[0].toUpperCase())
-                .join("")}
-            </p>
-          </AvatarFallback>
-        </Avatar>
+        <PokemonAvatar
+          avatar={{ name: pokemon.name, sprites: pokemon.sprites }}
+        />
       </TableCell>
       <TableCell className="w-20 md:w-28 p-2 md:p-4">
         <p className="font-medium capitalize truncate">{pokemon.name}</p>
