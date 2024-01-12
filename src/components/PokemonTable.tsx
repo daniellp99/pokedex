@@ -85,9 +85,7 @@ export default function PokemonTable() {
   const { list, isError, isLoading } = usePaginatedPokemonList(offset, limit);
 
   if (isLoading)
-    return (
-      <LoaderIcon className="hidden sm:table mt-12 animate-spin size-10 mx-auto" />
-    );
+    return <LoaderIcon className="mt-12 animate-spin size-10 mx-auto" />;
   // TODO make a fallback component in case of error
   if (isError || !list) return null;
 
@@ -97,7 +95,7 @@ export default function PokemonTable() {
   };
 
   return (
-    <Table className="hidden sm:table">
+    <Table>
       <TableCaption className="text-foreground">
         <Pagination>
           <PaginationContent>
