@@ -245,3 +245,5 @@ export const pokemonDetailSchema = z.object({
 });
 
 export type Pokemon = z.infer<typeof pokemonDetailSchema>;
+
+export type PokemonStats = z.infer<typeof pokemonDetailSchema.shape.stats>;
