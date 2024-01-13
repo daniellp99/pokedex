@@ -24,7 +24,6 @@ import {
 
 import { Badge } from "@/components/ui/badge";
 
-import { PokemonType } from "@/lib/schemas/pokemon-detail";
 import { cn } from "@/lib/utils";
 
 function PokemonTypeIcon(typeName: string) {
@@ -77,55 +76,55 @@ function PokemonTypeIcon(typeName: string) {
 export function PokemonTypeColor(typeName: string) {
   switch (typeName) {
     case "normal":
-      return "bg-primary-500 hover:bg-primary-500/80";
+      return "bg-teal-700";
     case "fighting":
-      return "bg-rose-500 hover:bg-rose-500/80";
+      return "bg-rose-500";
     case "flying":
-      return "bg-cyan-300 hover:bg-cyan-300/80";
+      return "bg-cyan-300";
     case "poison":
-      return "bg-purple-500 hover:bg-purple-500/80";
+      return "bg-purple-500";
     case "ground":
-      return "bg-orange-300 hover:bg-orange-300/80";
+      return "bg-orange-300";
     case "rock":
-      return "bg-stone-500 hover:bg-stone-500/80";
+      return "bg-stone-500";
     case "bug":
-      return "bg-green-500 hover:bg-green-500/80";
+      return "bg-green-500";
     case "ghost":
-      return "bg-gray-500 hover:bg-gray-500/80";
+      return "bg-gray-500";
     case "steel":
-      return "bg-slate-400 hover:bg-slate-400/80";
+      return "bg-slate-400";
     case "fire":
-      return "bg-red-500 hover:bg-red-500/80";
+      return "bg-red-500";
     case "water":
-      return "bg-sky-500 hover:bg-sky-500/80";
+      return "bg-sky-500";
     case "grass":
-      return "bg-lime-500 hover:bg-lime-500/80";
+      return "bg-lime-500";
     case "electric":
-      return "bg-yellow-500 hover:bg-yellow-500/80";
+      return "bg-yellow-500";
     case "psychic":
-      return "bg-pink-400 hover:bg-pink-400/80";
+      return "bg-pink-400";
     case "ice":
-      return "bg-blue-100 hover:bg-blue-100/80";
+      return "bg-blue-100";
     case "dragon":
-      return "bg-violet-600 hover:bg-violet-600/80";
+      return "bg-violet-600";
     case "dark":
-      return "bg-neutral-600 hover:bg-neutral-600/80";
+      return "bg-neutral-600";
     case "fairy":
-      return "bg-amber-700 hover:bg-amber-700/80";
+      return "bg-amber-700";
     case "unknown":
-      return "bg-white hover:bg-white/80";
+      return "bg-emerald-700";
     case "shadow":
-      return "bg-black/80 hover:bg-black/80";
+      return "bg-indigo-500";
 
     default:
       return;
   }
 }
 export default function PokemonTypeBadge({
-  item,
+  name,
   isTextVisible,
 }: {
-  item: PokemonType;
+  name: string;
   isTextVisible?: boolean;
 }) {
   return (
@@ -133,11 +132,12 @@ export default function PokemonTypeBadge({
       variant="outline"
       className={cn(
         "cursor-default w-fit p-1.5  mx-[2px] gap-1 rounded-sm",
-        PokemonTypeColor(item.type.name)
+        PokemonTypeColor(name),
+        `hover:${PokemonTypeColor(name)}/80`
       )}
     >
-      {PokemonTypeIcon(item.type.name)}
-      {isTextVisible && <p className="capitalize text-sm">{item.type.name}</p>}
+      {PokemonTypeIcon(name)}
+      {isTextVisible && <p className="capitalize text-sm">{name}</p>}
     </Badge>
   );
 }
