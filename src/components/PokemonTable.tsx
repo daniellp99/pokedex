@@ -30,16 +30,19 @@ function LoadingRow() {
   return (
     <TableRow>
       <TableCell className="p-0">
-        <Skeleton className="h-[99px] md:h-[76px] w-full rounded-none" />
+        <Skeleton className="h-[101px] md:h-[86px] w-full rounded-none" />
       </TableCell>
       <TableCell className="p-0">
-        <Skeleton className="h-[99px] md:h-[76px] w-full rounded-none" />
+        <Skeleton className="h-[101px] md:h-[86px] w-full rounded-none" />
       </TableCell>
       <TableCell className="p-0">
-        <Skeleton className="h-[99px] md:h-[76px] w-full rounded-none" />
+        <Skeleton className="h-[101px] md:h-[86px] w-full rounded-none" />
       </TableCell>
       <TableCell className="p-0">
-        <Skeleton className="h-[99px] md:h-[76px] w-full rounded-none" />
+        <Skeleton className="h-[101px] md:h-[86px] w-full rounded-none" />
+      </TableCell>
+      <TableCell className="p-0">
+        <Skeleton className="h-[101px] md:h-[86px] w-full rounded-none" />
       </TableCell>
     </TableRow>
   );
@@ -68,8 +71,10 @@ function PokemonRow({ name }: { name: string }) {
           {pokemon.abilities[0].ability.name.replace("-", " ")}
         </p>
       </TableCell>
-      <TableCell className="grid grid-cols-2 md:grid-cols-3 place-items-center w-auto gap-[1px]">
-        <PokemonStatBadges stats={pokemon.stats} />
+      <TableCell className="w-auto">
+        <div className="grid grid-cols-2 md:grid-cols-3 place-items-center size-full gap-[1px]">
+          <PokemonStatBadges stats={pokemon.stats} />
+        </div>
       </TableCell>
       <TableCell className="">
         <p className="capitalize">
