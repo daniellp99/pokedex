@@ -16,9 +16,9 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-import { PokemonStats } from "@/lib/schemas/pokemon-detail";
+import { PokemonStat } from "@/lib/schemas/pokemon-detail";
 
-function StatIcon(statName: string) {
+export function StatIcon(statName: string) {
   switch (statName) {
     case "hp":
       return <HeartIcon className="size-4" />;
@@ -42,7 +42,7 @@ function StatIcon(statName: string) {
       return <PieChartIcon className="size-4" />;
   }
 }
-export default function PokemonStatBadges({ stats }: { stats: PokemonStats }) {
+export default function PokemonStatBadges({ stats }: { stats: PokemonStat[] }) {
   return stats.map((item) => (
     <TooltipProvider key={item.stat.name}>
       <Tooltip>
