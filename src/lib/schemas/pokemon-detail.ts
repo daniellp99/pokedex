@@ -245,8 +245,12 @@ export const pokemonDetailSchema = z.object({
 });
 
 export type Pokemon = z.infer<typeof pokemonDetailSchema>;
-
-export type PokemonStats = z.infer<typeof pokemonDetailSchema.shape.stats>;
+export type PokemonStat = z.infer<
+  typeof pokemonDetailSchema.shape.stats.element
+>;
+export type PokemonType = z.infer<
+  typeof pokemonDetailSchema.shape.types.element
+>;
 
 const PokemonSpritesSchema = pokemonDetailSchema.pick({
   name: true,
