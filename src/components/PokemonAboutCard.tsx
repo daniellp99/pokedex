@@ -5,6 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 
 import { usePokemonSpecie } from "@/hooks/usePokemonSpecie";
 import { Pokemon } from "@/lib/schemas/pokemon-detail";
@@ -15,7 +16,7 @@ export default function PokemonAboutCard({ pokemon }: { pokemon: Pokemon }) {
     pokemon.species.name
   );
 
-  if (isLoading) return null;
+  if (isLoading) return <Skeleton className="w-full h-full" />;
 
   // TODO make a fallback component in case of error
   if (isError || !pokemonSpecie) return null;

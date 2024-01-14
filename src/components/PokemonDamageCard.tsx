@@ -1,10 +1,10 @@
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 
-import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { useAllTypes, usePokemonType } from "@/hooks/usePokemonType";
-import { Pokemon, PokemonType } from "@/lib/schemas/pokemon-detail";
-import PokemonTypeBadge from "./PokemonTypeBadge";
+import { PokemonType } from "@/lib/schemas/pokemon-detail";
 import { cn } from "@/lib/utils";
+import PokemonTypeBadge from "./PokemonTypeBadge";
+import { Skeleton } from "./ui/skeleton";
 
 function PokemonDamageCardItem({
   iterType,
@@ -51,7 +51,7 @@ function PokemonDamageCardItem({
 export default function PokemonDamageCard({ type }: { type: PokemonType }) {
   const { allTypes, isError, isLoading } = useAllTypes();
 
-  if (isLoading) return null;
+  if (isLoading) return <Skeleton className="w-full h-full" />;
 
   // TODO make a fallback component in case of error
   if (isError || !allTypes) return null;
