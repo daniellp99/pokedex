@@ -6,15 +6,6 @@ import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 export default function PokemonProvider() {
   const isDesktop = useMediaQuery("(min-width: 640px)");
-  if (isDesktop)
-    return (
-      <PaginationContextProvider>
-        <PokemonTable />
-      </PaginationContextProvider>
-    );
-  return (
-    <PaginationContextProvider>
-      <PokemonList />
-    </PaginationContextProvider>
-  );
+  if (isDesktop) return <PokemonTable />;
+  return <PokemonList />;
 }

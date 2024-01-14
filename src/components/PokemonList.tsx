@@ -15,6 +15,7 @@ import { usePokemon } from "@/hooks/usePokemon";
 import { usePaginationContext } from "./PaginationContext";
 import PokemonStatBadges from "./PokemonStatBadges";
 import PokemonAvatar from "./PokemonAvatar";
+import useQueryParams from "@/hooks/useQueryParams";
 
 function PokemonCard({ name }: { name: string }) {
   const { pokemon, isError, isLoading } = usePokemon(name);
@@ -54,8 +55,20 @@ function PokemonCard({ name }: { name: string }) {
   );
 }
 
-function CardList({ offset, limit }: { offset: number; limit: number }) {
-  const { list, isError, isLoading } = usePaginatedPokemonList(offset, limit);
+function CardList({
+  offset,
+  limit,
+  q,
+}: {
+  offset: number;
+  limit: number;
+  q: string;
+}) {
+  const { list, isError, isLoading } = usePaginatedPokemonList(
+    offset,
+    limit,
+    q
+  );
 
   if (isLoading)
     return (
@@ -79,13 +92,24 @@ function CardList({ offset, limit }: { offset: number; limit: number }) {
 
 export default function PokemonList() {
   const { offset, setOffset, limit, setLimit } = usePaginationContext();
+  const { queryParams } = useQueryParams();
 
+  const q = queryParams.get("q") ?? "";
+
+  if (q !== "") {
+    return (
+      <ul className="flex flex-col gap-2">
+        <CardList offset={0} limit={100000} q={q} />;
+      </ul>
+    );
+  }
   const pages = [];
   for (let i = 0; i <= offset / limit; i++) {
     pages.push(
       <CardList
         offset={i * limit}
         limit={limit}
+        q={q}
         key={`${i * limit}-${limit}`}
       />
     );
@@ -98,16 +122,18 @@ export default function PokemonList() {
 
   return (
     <ul className="flex flex-col gap-2">
-      {pages}
-      <li className="place-self-center">
-        <Button
-          onClick={() => {
-            handlePageChange();
-          }}
-        >
-          Load More
-        </Button>
-      </li>
+      {q === "" && pages}
+      {q === "" && (
+        <li className="place-self-center">
+          <Button
+            onClick={() => {
+              handlePageChange();
+            }}
+          >
+            Load More
+          </Button>
+        </li>
+      )}
     </ul>
   );
 }

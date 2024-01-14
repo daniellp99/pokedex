@@ -1,5 +1,8 @@
 "use client";
 
+import { SearchIcon } from "lucide-react";
+import { useForm } from "react-hook-form";
+
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -9,12 +12,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useForm } from "react-hook-form";
 
+import useQueryParams from "@/hooks/useQueryParams";
 import { TSearchInput, searchInputSchema } from "@/lib/schemas/search-input";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 export default function SearchInput() {
+  const { setQueryParams } = useQueryParams();
+
   const form = useForm<TSearchInput>({
     resolver: zodResolver(searchInputSchema),
     defaultValues: {
@@ -23,9 +28,9 @@ export default function SearchInput() {
   });
 
   function onSubmit(values: TSearchInput) {
-    // Do something with the form values.
-    console.log(values);
+    setQueryParams({ q: values.input });
   }
+
   return (
     <Form {...form}>
       <form
@@ -50,20 +55,7 @@ export default function SearchInput() {
           )}
         />
         <Button type="submit" size="icon" variant="ghost">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="size-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
-            />
-          </svg>
+          <SearchIcon />
         </Button>
       </form>
     </Form>
