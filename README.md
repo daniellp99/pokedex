@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Pokedex
+
+This is a Pokedex app built with [Next.js](https://nextjs.org/), React, TypeScript and Tailwind CSS.
+
+You can se the deployed version on Vercel [here](https://pokedex-sooty-nine.vercel.app/).
+
+## Features
+
+- Display a paginated list of Pokemon
+- Search for Pokemon
+- View Pokemon details including abilities, moves, - sprites etc.
+- Filter Pokemon by name
+- Responsive design
+
+## Technologies
+
+- SWR for data fetching
+- Zod for validation
+- Shadcn UI library with accesible component
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js
+
+### Installation
+- Clone the repo git clone https://github.com/daniellp99/pokedex.git
+
+- Install NPM packages
+yarn install
+
+```bash
+npm install
+```
+
+- Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Customizing
 
-## Learn More
+- The Tailwind CSS configuration is in tailwind.config.ts.
 
-To learn more about Next.js, take a look at the following resources:
+- Global styles are in src/app/globals.css.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Components are located in components/*.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- Reusable hooks and utils are in src/lib/*.
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
