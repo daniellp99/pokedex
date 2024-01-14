@@ -35,7 +35,7 @@ export default function SearchInput() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="inline-flex gap-1 pb-[14px]"
+        className="inline-flex gap-1"
       >
         <FormField
           control={form.control}

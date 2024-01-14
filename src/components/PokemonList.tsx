@@ -1,5 +1,5 @@
 "use client";
-import { LoaderIcon } from "lucide-react";
+import { FrownIcon, LoaderIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -33,11 +33,13 @@ function PokemonCard({ name }: { name: string }) {
       </CardHeader>
       <CardContent className="grid grid-cols-3 gap-3 place-items-center pb-0">
         <ul className="col-span-2">
-          <li>
-            <p className="capitalize ">
-              Ability: {pokemon.moves[0].move.name.replace("-", " ")}
-            </p>
-          </li>
+          {pokemon.moves.length !== 0 && (
+            <li>
+              <p className="capitalize ">
+                Ability: {pokemon.moves[0].move.name.replace("-", " ")}
+              </p>
+            </li>
+          )}
           <li>
             <p className="capitalize">
               Move: {pokemon.abilities[0].ability.name.replace("-", " ")}
@@ -81,11 +83,19 @@ function CardList({
 
   return (
     <>
-      {list.results.map((pokemon) => (
-        <li key={pokemon.name}>
-          <PokemonCard name={pokemon.name} />
+      {list.results.length !== 0 ? (
+        list.results.map((pokemon) => (
+          <li key={pokemon.name}>
+            <PokemonCard name={pokemon.name} />
+          </li>
+        ))
+      ) : (
+        <li className="place-self-center pt-3">
+          <p className="text-center text-muted-foreground text-2xl">
+            No Pokemon found
+          </p>
         </li>
-      ))}
+      )}
     </>
   );
 }
@@ -99,7 +109,7 @@ export default function PokemonList() {
   if (q !== "") {
     return (
       <ul className="flex flex-col gap-2">
-        <CardList offset={0} limit={100000} q={q} />;
+        <CardList offset={0} limit={100000} q={q} />
       </ul>
     );
   }
