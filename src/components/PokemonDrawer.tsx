@@ -6,7 +6,9 @@ import {
   DrawerOverlay,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { usePokemon } from "@/hooks/usePokemon";
 import PokemonAboutCard from "./PokemonAboutCard";
 import PokemonDamageCard from "./PokemonDamageCard";
@@ -19,6 +21,7 @@ export function PokemonDrawer({
   children: React.ReactNode;
   name: string;
 }) {
+  const isDesktop = useMediaQuery("(min-width: 640px)");
   const [open, setOpen] = React.useState(false);
   const { pokemon, isError, isLoading } = usePokemon(name);
 
@@ -39,13 +42,33 @@ export function PokemonDrawer({
         className="bg-[image:var(--image-url)] bg-auto bg-no-repeat bg-top bg-black/40"
       />
       <DrawerContent>
-        {/* <DrawerHeader className="">
-         
-        </DrawerHeader> */}
-        <div className="grid grid-cols-3 gap-1">
-          <PokemonAboutCard pokemon={pokemon} />
-          <PokemonStatCard stats={pokemon.stats} />
-          <PokemonDamageCard type={pokemon.types[0]} />
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-1">
+          {isDesktop ? (
+            <>
+              <PokemonAboutCard pokemon={pokemon} />
+              <PokemonStatCard stats={pokemon.stats} />
+              <PokemonDamageCard type={pokemon.types[0]} />
+            </>
+          ) : (
+            <Tabs defaultValue="about" className="pt-2 h-[360px]">
+              <TabsList className="w-full">
+                <TabsTrigger value="basic-stats">Basic Stats</TabsTrigger>
+                <TabsTrigger value="about">About</TabsTrigger>
+                <TabsTrigger value="damage-relations">
+                  Damage Relations
+                </TabsTrigger>
+              </TabsList>
+              <TabsContent value="basic-stats" className="p-6">
+                <PokemonStatCard stats={pokemon.stats} />
+              </TabsContent>
+              <TabsContent value="about">
+                <PokemonAboutCard pokemon={pokemon} />
+              </TabsContent>
+              <TabsContent value="damage-relations">
+                <PokemonDamageCard type={pokemon.types[0]} />
+              </TabsContent>
+            </Tabs>
+          )}
         </div>
       </DrawerContent>
     </Drawer>

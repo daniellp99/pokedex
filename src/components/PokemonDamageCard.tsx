@@ -5,6 +5,7 @@ import { PokemonType } from "@/lib/schemas/pokemon-detail";
 import { cn } from "@/lib/utils";
 import PokemonTypeBadge from "./PokemonTypeBadge";
 import { Skeleton } from "./ui/skeleton";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 function PokemonDamageCardItem({
   iterType,
@@ -49,6 +50,7 @@ function PokemonDamageCardItem({
 }
 
 export default function PokemonDamageCard({ type }: { type: PokemonType }) {
+  const isDesktop = useMediaQuery("(min-width: 640px)");
   const { allTypes, isError, isLoading } = useAllTypes();
 
   if (isLoading) return <Skeleton className="w-full h-full" />;
@@ -58,11 +60,13 @@ export default function PokemonDamageCard({ type }: { type: PokemonType }) {
 
   return (
     <Card className="border-none">
-      <CardTitle className="">
-        <p className="font-medium text-muted-foreground text-center text-lg">
-          Damage Relations
-        </p>
-      </CardTitle>
+      {isDesktop && (
+        <CardTitle className="">
+          <p className="font-medium text-muted-foreground text-center text-lg">
+            Damage Relations
+          </p>
+        </CardTitle>
+      )}
       <CardContent className="grid grid-cols-4 gap-2">
         {allTypes.results.map((item) => (
           <PokemonDamageCardItem
