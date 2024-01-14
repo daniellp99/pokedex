@@ -25,6 +25,8 @@ import { extractOffSetAndLimit } from "@/lib/utils";
 import { usePaginationContext } from "./PaginationContext";
 import PokemonStatBadges from "./PokemonStatBadges";
 import PokemonAvatar from "./PokemonAvatar";
+import useQueryParams from "@/hooks/useQueryParams";
+import { useEffect } from "react";
 
 function LoadingRow() {
   return (
@@ -86,8 +88,16 @@ function PokemonRow({ name }: { name: string }) {
 }
 
 export default function PokemonTable() {
+  const { queryParams } = useQueryParams();
   const { offset, setOffset, limit, setLimit } = usePaginationContext();
-  const { list, isError, isLoading } = usePaginatedPokemonList(offset, limit);
+
+  const q = queryParams.get("q") ?? "";
+
+  const { list, isError, isLoading } = usePaginatedPokemonList(
+    offset,
+    limit,
+    q
+  );
 
   if (isLoading)
     return <LoaderIcon className="mt-12 animate-spin size-10 mx-auto" />;
@@ -101,75 +111,75 @@ export default function PokemonTable() {
 
   return (
     <Table>
-      <TableCaption className="text-foreground">
-        <Pagination>
-          <PaginationContent>
-            {list.previous && (
+      {q === "" && (
+        <TableCaption className="text-foreground">
+          <Pagination>
+            <PaginationContent>
+              {list.previous && (
+                <PaginationItem>
+                  <Button
+                    variant="ghost"
+                    onClick={() => {
+                      const { offsetNumber, limitNumber } =
+                        extractOffSetAndLimit(list.previous!);
+                      handlePageChange(offsetNumber!, limitNumber!);
+                    }}
+                  >
+                    <ChevronLeftIcon className="size-4" /> Prev
+                  </Button>
+                </PaginationItem>
+              )}
               <PaginationItem>
                 <Button
                   variant="ghost"
-                  onClick={() => {
-                    const { offsetNumber, limitNumber } = extractOffSetAndLimit(
-                      list.previous!
-                    );
-                    handlePageChange(offsetNumber!, limitNumber!);
-                  }}
+                  onClick={() =>
+                    handlePageChange((offset / limit + 1) * limit, limit)
+                  }
                 >
-                  <ChevronLeftIcon className="size-4" /> Prev
+                  {offset / limit + 1}
                 </Button>
               </PaginationItem>
-            )}
-            <PaginationItem>
-              <Button
-                variant="ghost"
-                onClick={() =>
-                  handlePageChange((offset / limit + 1) * limit, limit)
-                }
-              >
-                {offset / limit + 1}
-              </Button>
-            </PaginationItem>
-            <PaginationItem>
-              <Button
-                variant="ghost"
-                onClick={() =>
-                  handlePageChange((offset / limit + 2) * limit, limit)
-                }
-              >
-                {offset / limit + 2}
-              </Button>
-            </PaginationItem>
-            <PaginationItem>
-              <Button
-                variant="ghost"
-                onClick={() =>
-                  handlePageChange((offset / limit + 3) * limit, limit)
-                }
-              >
-                {offset / limit + 3}
-              </Button>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationEllipsis />
-            </PaginationItem>
-            {list.next && (
               <PaginationItem>
                 <Button
                   variant="ghost"
-                  onClick={() => {
-                    const { offsetNumber, limitNumber } = extractOffSetAndLimit(
-                      list.next!
-                    );
-                    handlePageChange(offsetNumber!, limitNumber!);
-                  }}
+                  onClick={() =>
+                    handlePageChange((offset / limit + 2) * limit, limit)
+                  }
                 >
-                  Next <ChevronRightIcon className="size-4" />
+                  {offset / limit + 2}
                 </Button>
               </PaginationItem>
-            )}
-          </PaginationContent>
-        </Pagination>
-      </TableCaption>
+              <PaginationItem>
+                <Button
+                  variant="ghost"
+                  onClick={() =>
+                    handlePageChange((offset / limit + 3) * limit, limit)
+                  }
+                >
+                  {offset / limit + 3}
+                </Button>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationEllipsis />
+              </PaginationItem>
+              {list.next && (
+                <PaginationItem>
+                  <Button
+                    variant="ghost"
+                    onClick={() => {
+                      const { offsetNumber, limitNumber } =
+                        extractOffSetAndLimit(list.next!);
+                      handlePageChange(offsetNumber!, limitNumber!);
+                    }}
+                  >
+                    Next <ChevronRightIcon className="size-4" />
+                  </Button>
+                </PaginationItem>
+              )}
+            </PaginationContent>
+          </Pagination>
+        </TableCaption>
+      )}
       <TableHeader>
         <TableRow>
           <TableHead className="w-20 md:w-28 lg:w-40">Icon</TableHead>
