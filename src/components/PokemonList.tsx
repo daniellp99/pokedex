@@ -60,7 +60,7 @@ function CardList({ offset, limit }: { offset: number; limit: number }) {
   if (isLoading)
     return (
       <li className="place-self-center">
-        <LoaderIcon className="flex sm:hidden animate-spin size-10" />
+        <LoaderIcon className="flex animate-spin size-10" />
       </li>
     );
   // TODO make a fallback component in case of error
@@ -97,7 +97,7 @@ export default function PokemonList() {
   };
 
   return (
-    <ul className="flex flex-col gap-2 sm:hidden">
+    <ul className="flex flex-col gap-2">
       {pages}
       <li className="place-self-center">
         <Button

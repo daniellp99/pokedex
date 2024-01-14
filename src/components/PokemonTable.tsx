@@ -30,16 +30,19 @@ function LoadingRow() {
   return (
     <TableRow>
       <TableCell className="p-0">
-        <Skeleton className="h-[99px] md:h-[76px] w-full rounded-none" />
+        <Skeleton className="h-[101px] md:h-[86px] w-full rounded-none" />
       </TableCell>
       <TableCell className="p-0">
-        <Skeleton className="h-[99px] md:h-[76px] w-full rounded-none" />
+        <Skeleton className="h-[101px] md:h-[86px] w-full rounded-none" />
       </TableCell>
       <TableCell className="p-0">
-        <Skeleton className="h-[99px] md:h-[76px] w-full rounded-none" />
+        <Skeleton className="h-[101px] md:h-[86px] w-full rounded-none" />
       </TableCell>
       <TableCell className="p-0">
-        <Skeleton className="h-[99px] md:h-[76px] w-full rounded-none" />
+        <Skeleton className="h-[101px] md:h-[86px] w-full rounded-none" />
+      </TableCell>
+      <TableCell className="p-0">
+        <Skeleton className="h-[101px] md:h-[86px] w-full rounded-none" />
       </TableCell>
     </TableRow>
   );
@@ -55,7 +58,7 @@ function PokemonRow({ name }: { name: string }) {
 
   return (
     <TableRow className="odd:bg-accent">
-      <TableCell className="w-20 p-0">
+      <TableCell className="w-20 md:w-28 lg:w-40 p-0">
         <PokemonAvatar
           avatar={{ name: pokemon.name, sprites: pokemon.sprites }}
         />
@@ -68,8 +71,10 @@ function PokemonRow({ name }: { name: string }) {
           {pokemon.abilities[0].ability.name.replace("-", " ")}
         </p>
       </TableCell>
-      <TableCell className="grid grid-cols-2 md:grid-cols-3 place-items-center w-auto gap-[1px]">
-        <PokemonStatBadges stats={pokemon.stats} />
+      <TableCell className="w-auto">
+        <div className="grid grid-cols-2 md:grid-cols-3 place-items-center size-full gap-[1px]">
+          <PokemonStatBadges stats={pokemon.stats} />
+        </div>
       </TableCell>
       <TableCell className="">
         <p className="capitalize">
@@ -85,9 +90,7 @@ export default function PokemonTable() {
   const { list, isError, isLoading } = usePaginatedPokemonList(offset, limit);
 
   if (isLoading)
-    return (
-      <LoaderIcon className="hidden sm:table mt-12 animate-spin size-10 mx-auto" />
-    );
+    return <LoaderIcon className="mt-12 animate-spin size-10 mx-auto" />;
   // TODO make a fallback component in case of error
   if (isError || !list) return null;
 
@@ -97,7 +100,7 @@ export default function PokemonTable() {
   };
 
   return (
-    <Table className="hidden sm:table">
+    <Table>
       <TableCaption className="text-foreground">
         <Pagination>
           <PaginationContent>
